@@ -1,11 +1,7 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const util = require("util");
-// // function to initialize program
-// function init() {
-// }
-// // function call to initialize program
-// init();
+
 
 function promptUser() {
   return inquirer.prompt([
@@ -26,13 +22,8 @@ function promptUser() {
     },
     {
       type: "input",
-      name: "contents",
-      message: "What is your table of contents?"
-    },
-    {
-      type: "input",
       name: "github",
-      message: "Enter your GitHub Username"
+      message: "Link to the github"
     },
     {
       type: "input",
@@ -59,20 +50,24 @@ function promptUser() {
 }
 
 function createRME(answers) {
-  return ` My project is called ${answers.name}.
+  return ` 
+   # ${answers.name}.
 
-   description: ${answers.description}.
+    ${answers.description}.
 
-   This is how you install it: ${answers.installation}.
+   ## Installation
 
-   Here is my table of contents: ${answers.contents}
+    ${answers.installation}.
 
-   My github username is ${answers.github}.
+   ## Github
+   
+    ${answers.github}.
 
-   My LinkedIn name is ${answers.linkedin}.
+   ## Find me on linkedin
+    ${answers.linkedin}.
 
-   This is the License I used: ${answers.license}.
-
+   ## License
+    ${answers.license}.
   `;
 }
 
@@ -80,7 +75,7 @@ promptUser()
 
   .then((answers) => {
     const readme = createRME(answers);
-    return fs.writeFile("readme.md", readme, function(err) {
+    return fs.writeFile("README.md", readme, function(err) {
       if (err) {
         return console.log(err);
       }
